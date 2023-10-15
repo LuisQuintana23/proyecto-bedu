@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "up": "nodemon ./app.js"
+    "up": "nodemon ./app.js",
+    "db": "npx sequelize-cli"
   },
   "keywords": [],
   "author": "",

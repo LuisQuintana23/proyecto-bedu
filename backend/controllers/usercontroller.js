@@ -36,7 +36,7 @@ export const createUser = async (req, res) => {
             password: params.password,
             created_at: params.created_at,
             updated_at: params.updated_at,
-            email: 'hola@gmail.com'
+            email: params.email
         })
         res.json({
             "message":"Usuario creado satisfactoriamente"

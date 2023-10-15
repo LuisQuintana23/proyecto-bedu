@@ -5,14 +5,14 @@ services:
     image: mysql:8
     restart: always
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     command: --default-authentication-plugin=caching_sha2_password
     ports:
-      - '3306:3306'
+      - ${DB_PORT}:3306
     expose:
-      - '3306'
+      - ${DB_PORT}
     volumes:
-      - ./sql:/docker-entrypoint-initdb.d
+      - ./database/sql:/docker-entrypoint-initdb.d
