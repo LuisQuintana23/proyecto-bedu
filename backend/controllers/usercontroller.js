@@ -17,20 +17,27 @@ export const getAllUsers = async (req, res) => {
 export const getUser = async (req, res) => {
     try{
         const user = await usermodel.findAll({
-            where:{id:req.params.id}
+            where:{
+                id: req.params.id
+            }
         })
         res.json(user)
     }catch (error){
         res.json({message: error.message})
-
     }
-
 }
 
 // crear un registro de usuario
 export const createUser = async (req, res) => {
     try{
-        await usermodel.create
+        const params = req.body;
+        await usermodel.create({
+            username: params.username,
+            password: params.password,
+            created_at: params.created_at,
+            updated_at: params.updated_at,
+            email: 'hola@gmail.com'
+        })
         res.json({
             "message":"Usuario creado satisfactoriamente"
         })
@@ -43,7 +50,7 @@ export const createUser = async (req, res) => {
 // actualizar un registro
 export const updateUser = async (req, res)=>{
     try{
-        await usermodel.update(req, body,{
+        await usermodel.update(req.body,{
             where: {id: req.params.id}
         })
         res.json({
@@ -58,7 +65,7 @@ export const updateUser = async (req, res)=>{
 //eliminar un registro
 export const deletedUser = async (req, res)=>{
     try{
-        await usermodel.destroy(req, body,{
+        await usermodel.destroy({
             where: {id: req.params.id}
         })
         res.json({

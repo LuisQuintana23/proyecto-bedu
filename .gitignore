@@ -2,4 +2,6 @@
 .vscode
 api/node_modules
 client/node_modules
+backend/node_modules
 .env
+
