@@ -1,17 +1,20 @@
-import 'dotenv/config';
 import express from 'express'
+import 'dotenv/config';
 import db from './database/db.js'
-import userroutes from './routes/user.js'
-import routes from './routes/routes.js'
+
+import userRoutes from './routes/user.routes.js'
+import authRoutes from "./routes/auth.routes.js";
+
+import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
-const {APP_PORT} = process.env;
+import pkg from './package.json' assert { type: "json" }
 
 const app = express()
 
-// plantillas
-app.set('view engine', 'ejs');
-// archivos estaticos
-app.use(express.static('public'))
+// importar configuración de package json como version y descripción
+app.set('pkg', pkg)
+// mostrar logs de consultas HTTP
+app.use(morgan('dev'))
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
@@ -29,16 +32,24 @@ app.use((req, res, next) => {
 })
 
 // Routes
-app.use('/user',userroutes)
-app.use('/', routes)
+app.use('/api/users',userRoutes)
+app.use('/api/auth', authRoutes)
 
+// conexión a base de datos
 try {
     db.authenticate()
     console.log('Conexión exitosa a la base de datos')
 } catch (error) {
-    console.log('Error de conexión en la bd: ${error}')
+    console.log(`Error de conexión en la bd: ${error}`)
 }
 
-app.listen(APP_PORT, ()=>{
-    console.log(`Servidor ejecutandose desde http://localhost:${APP_PORT}`)
+app.get('/', (req, res) => {
+    res.json({
+        name: app.get('pkg').name,
+        description: app.get('pkg').description,
+        version: app.get('pkg').version
+
+    })
 })
+
+export default app

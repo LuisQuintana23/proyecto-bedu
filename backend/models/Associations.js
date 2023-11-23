@@ -1,10 +1,10 @@
-import usermodel from "./usermodel.js";
-import loginmodel from "./loginmodel.js";
+import user from "./User.js";
+import login from "./Login.js";
 
 // un usario tiene muchos logins
-usermodel.hasMany(loginmodel);
+user.hasMany(login);
 // un login pertenece a un solo usuario
-loginmodel.belongsTo(usermodel, {
+login.belongsTo(user, {
     foreignKey: {
         allowNull: false,
         name: 'user_id',
