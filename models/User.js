@@ -1,9 +1,9 @@
-//importar conexion de la base de datos
+// importar conexion de la base de datos
 import db from "../database/db.js";
-//importar sequelizer
+// importar sequelizer
 import {DataTypes} from "sequelize";
 
-const usermodel = db.define('user',{
+const User = db.define('user',{
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -22,4 +22,6 @@ const usermodel = db.define('user',{
 }
 )
 
-export default usermodel
+
+
+export default User

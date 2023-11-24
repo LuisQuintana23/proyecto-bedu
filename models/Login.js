@@ -3,7 +3,7 @@ import db from "../database/db.js";
 //importar sequelizer
 import {DataTypes} from "sequelize";
 
-const loginmodel = db.define('logins',{
+const login = db.define('logins',{
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -31,4 +31,4 @@ const loginmodel = db.define('logins',{
     }
 )
 
-export default loginmodel
+export default login
